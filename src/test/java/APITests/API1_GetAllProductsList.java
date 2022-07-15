@@ -1,10 +1,12 @@
 package APITests;
 
 import base_urls.AutomationExerciseBaseUrl;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 
 public class API1_GetAllProductsList extends AutomationExerciseBaseUrl {
     /*
@@ -18,20 +20,21 @@ public class API1_GetAllProductsList extends AutomationExerciseBaseUrl {
     @Test
     public void get01() {
         // i) Set the URL
-        String url = "https://restful-booker.herokuapp.com/booking/555";
+        spec.pathParam("first","productsList");
         // ii) Set the expected data(POST-PUT-PATCH)
         //get yapmıyacığımız için 2nci (ii) adımı atlıyoruz
 
         // iii) Type code to send request
-        Response response = given().when().get(url);
-        //response.prettyPrint();//yaptığımız sorguyu yazdırdık.
-        // iv) Do assertion
-        response.
-                then().
+        Response response = given().spec(spec).when().get("{first}");
+        response.prettyPrint();
+        //4. Step : Do assertion
+        response.then().
                 assertThat().
                 statusCode(200).
-                contentType("application/json").
+                contentType("text/html; charset=utf-8").
                 statusLine("HTTP/1.1 200 OK");
+
+
     }
 
 }
