@@ -1,13 +1,16 @@
 package APITests;
 
 import base_urls.AutomationExerciseBaseUrl;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
+import test_data.AutomationExerciseTestData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 public class API2_POSTToAllProductsList extends AutomationExerciseBaseUrl {
@@ -30,26 +33,17 @@ public class API2_POSTToAllProductsList extends AutomationExerciseBaseUrl {
         // ii) Set the expected data(POST-PUT-PATCH)
         //get yapmıyacığımız için 2nci (ii) adımı atlıyoruz
 
-        Map<String,Object> expectedData=new HashMap<>();
-        expectedData.put("responseCode",405);
-        expectedData.put("message","This request method is not supported.");
+        AutomationExerciseTestData expectedData=new AutomationExerciseTestData();
+        Map<String, Object> expectedDataMap =expectedData.expectedDataWithAllKeys(405,"This request method is not supported.");
 
         // iii) Type code to send request
-        Response response = given().spec(spec).when().post("{first}");
+        Response response = given().spec(spec).contentType(ContentType.JSON).body(expectedDataMap).when().post("{first}");
         response.prettyPrint();
 
-        Map<String, Object> actualData = response.as(HashMap.class);//de-serialization yaptık
-        System.out.println(actualData);
-
         //4. Step : Do assertion
-        response.then().
-                assertThat().
-                statusCode(200);
-
-
-        assertEquals("responseCode",response.statusCode());
-
-
+        HashMap actualDataMap= response.as(HashMap.class);
+        assertEquals(expectedDataMap.get("responseCode"),actualDataMap.get("responseCode"));
+        assertEquals(expectedDataMap.get("message"),actualDataMap.get("message"));
 
     }
 }
