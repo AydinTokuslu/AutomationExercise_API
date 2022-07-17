@@ -1,6 +1,7 @@
 package APITests;
 
 import base_urls.AutomationExerciseBaseUrl;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class API1_GetAllProductsList_v2 extends AutomationExerciseBaseUrl {
         //get yapmıyacığımız için 2nci (ii) adımı atlıyoruz
 
         // iii) Type code to send request
-        Response response = given().spec(spec).when().get("{first}");
+        Response response = given().spec(spec).contentType(ContentType.JSON).when().get("{first}");
         response.prettyPrint();
         //4. Step : Do assertion
         response.then().

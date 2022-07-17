@@ -12,7 +12,7 @@ public class AutomationExerciseBaseUrl {
     @Before
     public void setUp() {
 
-        spec = new RequestSpecBuilder().setBaseUri("https://automationexercise.com/api/").build();
+        spec = new RequestSpecBuilder().setBaseUri("https://automationexercise.com/api").build();
 
     }
 }

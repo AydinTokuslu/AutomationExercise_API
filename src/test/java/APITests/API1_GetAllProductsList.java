@@ -36,9 +36,6 @@ public class API1_GetAllProductsList extends AutomationExerciseBaseUrl {
         response.prettyPrint();
         //4. Step : Do assertion
 
-        Map<String, Object> actualDataMap = response.as(HashMap.class);//de-serialization yaptık
-        System.out.println(actualDataMap);
-
         response.then().
                 assertThat().
                 statusCode(200).
