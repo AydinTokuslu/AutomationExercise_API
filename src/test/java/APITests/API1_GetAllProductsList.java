@@ -29,7 +29,7 @@ public class API1_GetAllProductsList extends AutomationExerciseBaseUrl {
         //get yapmıyacığımız için 2nci (ii) adımı atlıyoruz
 
         // iii) Type code to send request
-        Response response = given().spec(spec).contentType(ContentType.JSON).when().get("{first}");
+        Response response = given().relaxedHTTPSValidation().spec(spec).contentType(ContentType.JSON).when().get("{first}");
         //response.htmlPath().prettify();
 
         //response.jsonPath().prettify();
